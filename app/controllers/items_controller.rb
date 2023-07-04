@@ -21,6 +21,25 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to @item, :message => {:success => "Item updated"}
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    if @item.destroy 
+      redirect_to root_path, :message => {:success => "Item deleted"}
+    else
+      render @item
+    end
+  end
+
   private
     def item_params
       params.require(:item).permit(:title, :description)
